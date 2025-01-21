@@ -1,0 +1,4 @@
+owner: qiime2
+name: q2-fmt
+branch: dev
+docs: https://q2-fmt.readthedocs.io
