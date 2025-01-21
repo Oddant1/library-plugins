@@ -1,0 +1,45 @@
+name: lint-pr
+
+# Run on PR
+on:
+  # Possible to only run on PR that modifies plugins?
+  pull_request:
+    # branches:
+    #   - 'main'
+    # paths:
+    #   - '/plugins/**'
+
+# Checkout
+jobs:
+  lint:
+    permissions:
+      contents: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: plugins
+          fetch-depth: 2
+
+      # Get new/changed files?
+      # Not positive this works yet
+      - name: Added Files
+        run: GITHUB_OUTPUT=`git diff --name-only --diff-filter=A HEAD~ HEAD`
+
+      # Lint all added files
+      - name: Lint
+        run: |
+          python .github/scripts/lint.py $GITHUB_OUTPUT
+
+
+# Lint all files in plugins
+  # If anything outside of plugins is changed then fail?
+
+# Grab the target repo and validate it?
+  # Description?
+  # README?
+  # Env files?
+
