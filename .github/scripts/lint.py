@@ -38,10 +38,11 @@ def lint(yml):
     envs = response.json()
 
     for env in envs:
-        if re.search(ENV_FILE_REGEX, env.name) is not None:
+        if re.search(ENV_FILE_REGEX, env['name']) is not None:
+            print(env['name'])
+            print(env)
+            print()
             env_urls.append(env['download_url'])
-
-    print(env_urls)
 
 
 if __name__ == "__main__":
